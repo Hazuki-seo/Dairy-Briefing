@@ -376,3 +376,7 @@ textarea {
     display: block;
   }
 }
+
+/* v6: ニュース画像は使わない。image_url が残っていても表示しない */
+.news-image { display: none !important; }
+.news-detail-block p { line-height: 1.75; }

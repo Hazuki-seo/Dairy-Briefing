@@ -76,9 +76,9 @@ function hintLabelFor(item) {
 function renderNewsCard(item, comments) {
   const itemComments = commentsForBriefing(comments, item.id);
   const detailBlocks = [
-    renderDetailBlock('何が起きたか', item.what_happened),
-    renderDetailBlock('背景・文脈', item.background),
-    renderDetailBlock(item.section === 'society' ? 'なぜ重要か' : '見るポイント', item.watch_point)
+    renderDetailBlock('要点', item.what_happened),
+    renderDetailBlock('背景', item.background),
+    renderDetailBlock(item.section === 'society' ? 'なぜ重要か' : '注目点', item.watch_point)
   ].join('');
 
   return `
@@ -90,7 +90,6 @@ function renderNewsCard(item, comments) {
       </div>
       <h3>${escapeHTML(item.title)}</h3>
       <p class="news-summary">${escapeHTML(item.summary)}</p>
-      ${item.image_url ? `<img class="news-image" src="${escapeHTML(item.image_url)}" alt="" loading="lazy" />` : ''}
       ${detailBlocks ? `<div class="news-details">${detailBlocks}</div>` : ''}
       ${item.work_hint ? `<p class="news-hint"><strong>${hintLabelFor(item)}：</strong>${escapeHTML(item.work_hint)}</p>` : ''}
       <div class="card-actions">

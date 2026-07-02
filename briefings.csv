@@ -10,6 +10,7 @@ on:
       - 'scripts/**'
       - 'package.json'
       - '.github/workflows/pages.yml'
+      - '.nojekyll'
   workflow_dispatch:
   schedule:
     # GitHub Actions の cron は UTC 基準です。
@@ -35,7 +36,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Validate CSV data
         run: npm run validate

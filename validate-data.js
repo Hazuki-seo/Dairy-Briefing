@@ -26,5 +26,26 @@
     "weight": "6",
     "reason": "社内施策・教育・安全衛生に展開しやすい",
     "updated_at": "2026-07-02"
+  },
+  {
+    "keyword": "印刷",
+    "category": "印刷・製造業",
+    "weight": "4",
+    "reason": "コメントから自動抽出",
+    "updated_at": "2026-07-02"
+  },
+  {
+    "keyword": "カスタマイズ",
+    "category": "印刷・製造業",
+    "weight": "4",
+    "reason": "コメントから自動抽出",
+    "updated_at": "2026-07-02"
+  },
+  {
+    "keyword": "店舗イベント",
+    "category": "未分類",
+    "weight": "4",
+    "reason": "コメントから自動抽出",
+    "updated_at": "2026-07-02"
   }
 ]
