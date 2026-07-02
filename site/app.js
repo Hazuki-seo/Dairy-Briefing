@@ -59,8 +59,28 @@ function renderComments(comments) {
   `;
 }
 
+function renderDetailBlock(label, value) {
+  if (!value) return '';
+  return `
+    <div class="news-detail-block">
+      <span>${escapeHTML(label)}</span>
+      <p>${escapeHTML(value)}</p>
+    </div>
+  `;
+}
+
+function hintLabelFor(item) {
+  return item.section === 'society' ? '押さえどころ' : '活用メモ';
+}
+
 function renderNewsCard(item, comments) {
   const itemComments = commentsForBriefing(comments, item.id);
+  const detailBlocks = [
+    renderDetailBlock('何が起きたか', item.what_happened),
+    renderDetailBlock('背景・文脈', item.background),
+    renderDetailBlock(item.section === 'society' ? 'なぜ重要か' : '見るポイント', item.watch_point)
+  ].join('');
+
   return `
     <article class="news-card" id="${escapeHTML(item.id)}">
       <div class="news-meta">
@@ -68,10 +88,11 @@ function renderNewsCard(item, comments) {
         <span class="news-id">${escapeHTML(item.id)}</span>
         ${item.importance ? `<span class="news-id">重要度 ${escapeHTML(item.importance)}</span>` : ''}
       </div>
+      ${item.image_url ? `<img class="news-image" src="${escapeHTML(item.image_url)}" alt="" loading="lazy" />` : `<div class="news-image news-image--placeholder"><span>${escapeHTML(item.category)}</span></div>`}
       <h3>${escapeHTML(item.title)}</h3>
       <p class="news-summary">${escapeHTML(item.summary)}</p>
-      ${item.image_url ? `<img class="news-image" src="${escapeHTML(item.image_url)}" alt="" loading="lazy" />` : `<div class="news-image news-image--placeholder"><span>${escapeHTML(item.category)}</span></div>`}
-      ${item.work_hint ? `<p class="news-hint"><strong>活用メモ：</strong>${escapeHTML(item.work_hint)}</p>` : ''}
+      ${detailBlocks ? `<div class="news-details">${detailBlocks}</div>` : ''}
+      ${item.work_hint ? `<p class="news-hint"><strong>${hintLabelFor(item)}：</strong>${escapeHTML(item.work_hint)}</p>` : ''}
       <div class="card-actions">
         ${item.source_url ? `<a href="${escapeHTML(item.source_url)}" target="_blank" rel="noopener">出典を見る</a>` : ''}
         <button type="button" class="comment-button secondary" data-briefing-id="${escapeHTML(item.id)}">このニュースにコメント</button>

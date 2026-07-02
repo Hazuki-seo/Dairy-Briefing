@@ -211,6 +211,35 @@ h3 {
   margin: 8px 0;
 }
 
+.news-summary {
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.news-details {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.news-detail-block {
+  border-left: 3px solid var(--accent);
+  padding: 2px 0 2px 12px;
+}
+
+.news-detail-block span {
+  display: block;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
+.news-detail-block p {
+  margin: 3px 0 0;
+  color: #3a3732;
+}
+
 .news-hint {
   background: #f7f4ed;
   border-radius: 14px;
