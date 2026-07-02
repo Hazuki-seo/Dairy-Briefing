@@ -1,3 +1,7 @@
+# Daily News Briefing Board v3
+
+ニュースカードを厚めに表示できる版です。`what_happened` / `background` / `watch_point` 列を使って、1本あたり4〜5行程度の本文量を出せます。
+
 # 今日のニュースボード / Daily News Briefing Board
 
 仕事で使うニュース5本＋現代社会人として知っておくべきニュース2本を、GitHub Pagesでブラウザ表示するためのテンプレートです。
