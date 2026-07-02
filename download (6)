@@ -377,6 +377,71 @@ textarea {
   }
 }
 
-/* v6: ニュース画像は使わない。image_url が残っていても表示しない */
-.news-image { display: none !important; }
-.news-detail-block p { line-height: 1.75; }
+
+
+/* v7: 「いつ・どこで・誰が」を明示する情報ブロック */
+.source-info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+  margin: 14px 0;
+  padding: 12px 14px;
+  background: #f7f4ed;
+  border: 1px solid #eee7dd;
+  border-radius: 14px;
+}
+
+.info-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.info-label {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
+.info-value {
+  min-width: 0;
+  color: #3a3732;
+  font-size: 14px;
+}
+
+.article-image {
+  margin: 14px 0;
+}
+
+.article-image img {
+  display: block;
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: #edf3ef;
+}
+
+.article-image figcaption {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.news-detail-block p {
+  line-height: 1.85;
+}
+
+.news-detail-block span {
+  margin-bottom: 2px;
+}
+
+@media (max-width: 760px) {
+  .source-info {
+    grid-template-columns: 1fr;
+  }
+}

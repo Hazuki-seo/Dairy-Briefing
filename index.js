@@ -6,7 +6,7 @@ const ROOT = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT, 'data');
 
 const requirements = {
-  'briefings.csv': ['date', 'id', 'section', 'category', 'title', 'summary', 'source_url', 'work_hint', 'importance'],
+  'briefings.csv': ['date', 'id', 'section', 'category', 'source_name', 'event_date', 'location', 'actor', 'title', 'summary', 'source_url', 'source_image_url', 'what_happened', 'background', 'watch_point', 'work_hint', 'importance'],
   'comments.csv': ['created_at', 'briefing_id', 'name', 'comment', 'related_url', 'tags', 'status'],
   'topic_weights.csv': ['keyword', 'category', 'weight', 'reason', 'updated_at']
 };

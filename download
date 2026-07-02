@@ -29,6 +29,10 @@ function formatDate(dateString) {
   }).format(date);
 }
 
+function isHttpUrl(value) {
+  return /^https?:\/\//i.test(String(value || '').trim());
+}
+
 async function fetchJSON(path) {
   const res = await fetch(path, { cache: 'no-store' });
   if (!res.ok) throw new Error(`Failed to load ${path}`);
@@ -59,6 +63,28 @@ function renderComments(comments) {
   `;
 }
 
+function renderInfoRow(label, value) {
+  if (!value) return '';
+  return `
+    <div class="info-row">
+      <span class="info-label">${escapeHTML(label)}</span>
+      <span class="info-value">${escapeHTML(value)}</span>
+    </div>
+  `;
+}
+
+function renderSourceInfo(item) {
+  const rows = [
+    renderInfoRow('いつ', item.event_date || item.published_date || item.date),
+    renderInfoRow('どこで', item.location),
+    renderInfoRow('誰が', item.actor),
+    renderInfoRow('出典', item.source_name)
+  ].join('');
+
+  if (!rows) return '';
+  return `<div class="source-info">${rows}</div>`;
+}
+
 function renderDetailBlock(label, value) {
   if (!value) return '';
   return `
@@ -73,12 +99,29 @@ function hintLabelFor(item) {
   return item.section === 'society' ? '押さえどころ' : '活用メモ';
 }
 
+function detailLabelFor(item) {
+  return item.section === 'society' ? 'なぜ重要か' : '見るポイント';
+}
+
+function renderSourceImage(item) {
+  const imageUrl = item.source_image_url || item.article_image_url || '';
+  if (!isHttpUrl(imageUrl)) return '';
+
+  const caption = item.image_caption || item.source_name || '記事サムネイル';
+  return `
+    <figure class="article-image">
+      <img src="${escapeHTML(imageUrl)}" alt="${escapeHTML(caption)}" loading="lazy" referrerpolicy="no-referrer" />
+      <figcaption>${escapeHTML(caption)}</figcaption>
+    </figure>
+  `;
+}
+
 function renderNewsCard(item, comments) {
   const itemComments = commentsForBriefing(comments, item.id);
   const detailBlocks = [
-    renderDetailBlock('要点', item.what_happened),
-    renderDetailBlock('背景', item.background),
-    renderDetailBlock(item.section === 'society' ? 'なぜ重要か' : '注目点', item.watch_point)
+    renderDetailBlock('何が起きたか', item.what_happened),
+    renderDetailBlock('背景・文脈', item.background),
+    renderDetailBlock(detailLabelFor(item), item.watch_point)
   ].join('');
 
   return `
@@ -90,6 +133,8 @@ function renderNewsCard(item, comments) {
       </div>
       <h3>${escapeHTML(item.title)}</h3>
       <p class="news-summary">${escapeHTML(item.summary)}</p>
+      ${renderSourceInfo(item)}
+      ${renderSourceImage(item)}
       ${detailBlocks ? `<div class="news-details">${detailBlocks}</div>` : ''}
       ${item.work_hint ? `<p class="news-hint"><strong>${hintLabelFor(item)}：</strong>${escapeHTML(item.work_hint)}</p>` : ''}
       <div class="card-actions">
@@ -111,7 +156,7 @@ function renderArchive(archive) {
   container.innerHTML = archive.map(day => `
     <div class="archive-item">
       <strong>${escapeHTML(day.date)}</strong>
-      <span>業務 ${escapeHTML(day.work_count)}本 / 時事 ${escapeHTML(day.society_count)}本</span>
+      <span>業務インサイト ${escapeHTML(day.work_count)}本 / 時事チェック ${escapeHTML(day.society_count)}本</span>
     </div>
   `).join('');
 }
