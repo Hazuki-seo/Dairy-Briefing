@@ -70,7 +70,8 @@ function renderNewsCard(item, comments) {
       </div>
       <h3>${escapeHTML(item.title)}</h3>
       <p class="news-summary">${escapeHTML(item.summary)}</p>
-      ${item.work_hint ? `<p class="news-hint"><strong>使いどころ：</strong>${escapeHTML(item.work_hint)}</p>` : ''}
+      ${item.image_url ? `<img class="news-image" src="${escapeHTML(item.image_url)}" alt="" loading="lazy" />` : `<div class="news-image news-image--placeholder"><span>${escapeHTML(item.category)}</span></div>`}
+      ${item.work_hint ? `<p class="news-hint"><strong>活用メモ：</strong>${escapeHTML(item.work_hint)}</p>` : ''}
       <div class="card-actions">
         ${item.source_url ? `<a href="${escapeHTML(item.source_url)}" target="_blank" rel="noopener">出典を見る</a>` : ''}
         <button type="button" class="comment-button secondary" data-briefing-id="${escapeHTML(item.id)}">このニュースにコメント</button>
@@ -90,7 +91,7 @@ function renderArchive(archive) {
   container.innerHTML = archive.map(day => `
     <div class="archive-item">
       <strong>${escapeHTML(day.date)}</strong>
-      <span>${escapeHTML(day.work_count)}本 / 社会 ${escapeHTML(day.society_count)}本</span>
+      <span>業務 ${escapeHTML(day.work_count)}本 / 時事 ${escapeHTML(day.society_count)}本</span>
     </div>
   `).join('');
 }
